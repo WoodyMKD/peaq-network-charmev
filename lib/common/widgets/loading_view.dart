@@ -1,8 +1,8 @@
 import 'dart:collection';
+
 import 'package:charmev/common/models/enum.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class CEVLoadingView extends StatefulWidget {
   static const loadingContentKey = ValueKey('loading');
@@ -72,6 +72,12 @@ class CEVLoadingViewState extends State<CEVLoadingView>
       case LoadingStatus.success:
         _animationStack.add(_successController.forward);
         break;
+      case LoadingStatus.charging:
+      // TODO: Handle this case.
+      case LoadingStatus.waiting:
+      // TODO: Handle this case.
+      case LoadingStatus.authorize:
+      // TODO: Handle this case.
     }
 
     _playAnimations();
@@ -103,6 +109,12 @@ class CEVLoadingViewState extends State<CEVLoadingView>
         case LoadingStatus.success:
           reverseAnimation = _successController.reverse;
           break;
+        case LoadingStatus.charging:
+        // TODO: Handle this case.
+        case LoadingStatus.waiting:
+        // TODO: Handle this case.
+        case LoadingStatus.authorize:
+        // TODO: Handle this case.
       }
 
       _animationStack.add(reverseAnimation);
@@ -118,6 +130,12 @@ class CEVLoadingViewState extends State<CEVLoadingView>
         case LoadingStatus.success:
           _animationStack.add(_successController.forward);
           break;
+        case LoadingStatus.charging:
+        // TODO: Handle this case.
+        case LoadingStatus.waiting:
+        // TODO: Handle this case.
+        case LoadingStatus.authorize:
+        // TODO: Handle this case.
       }
 
       _playAnimations();

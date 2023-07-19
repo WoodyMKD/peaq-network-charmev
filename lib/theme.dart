@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CEVTheme {
@@ -131,9 +130,9 @@ class CEVTheme {
     primaryColor: primaryColor,
     colorScheme: const ColorScheme(
         primary: accentColor,
-        primaryVariant: primaryColor,
+        primaryContainer: primaryColor,
         secondary: accentColor,
-        secondaryVariant: accentColor,
+        secondaryContainer: accentColor,
         surface: Colors.white,
         background: Colors.transparent,
         error: Colors.red,

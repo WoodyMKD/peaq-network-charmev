@@ -1,21 +1,17 @@
 import 'package:charmev/common/models/enum.dart';
 import 'package:charmev/common/providers/account_provider.dart';
 import 'package:charmev/common/providers/charge_provider.dart';
-import 'package:charmev/common/providers/peer_provider.dart';
-import 'package:charmev/common/utils/validation.dart';
+import 'package:charmev/common/widgets/buttons.dart';
+import 'package:charmev/common/widgets/custom_shapes.dart';
 import 'package:charmev/common/widgets/dropdown.dart';
 import 'package:charmev/common/widgets/loading_view.dart';
 import 'package:charmev/common/widgets/status_card.dart';
 import 'package:charmev/config/app.dart';
+import 'package:charmev/config/env.dart';
 import 'package:charmev/config/routes.dart';
 import 'package:charmev/theme.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:scan/scan.dart';
-
-import 'package:charmev/common/widgets/buttons.dart';
-import 'package:charmev/common/widgets/custom_shapes.dart';
-import 'package:charmev/config/env.dart';
 import 'package:provider/provider.dart' as provider;
 
 class HomeScreen extends StatefulWidget {
@@ -157,37 +153,36 @@ class _HomeScreenState extends State<HomeScreen>
                                           color: Colors.black,
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20))),
-                                      child: ScanView(
-                                        controller:
-                                            _dumbChargeProvider!.qrController,
-                                        scanAreaScale: 1,
-                                        scanLineColor: CEVTheme.dialogBgColor,
-                                        onCapture: (data) async {
-                                          // print("Sacnned:: $data");
-                                          // print("Sacnned len:: ${data.length}");
-                                          String err =
-                                              "${validation.did(data)}";
-                                          if (err.isNotEmpty) {
-                                            chargeProvider.setStatus(
-                                                LoadingStatus.error,
-                                                message: err);
-                                            return;
-                                          }
-                                          _dumbChargeProvider!.qrController
-                                              .pause();
-                                          chargeProvider.providerDid = data;
-                                          chargeProvider
-                                              .generateAndFundMultisigWallet();
+                                      child: CEVRaisedButton(
+                                          text: 'Spoof DID Scanning',
+                                          icon: Icons.keyboard_arrow_up,
+                                          iconColor: CEVTheme.textFadeColor,
+                                          textColor: CEVTheme.textFadeColor,
+                                          spacing: 8,
+                                          padding: const EdgeInsets.all(2),
+                                          isIconRight: true,
+                                          textSize: 13,
+                                          clipText: true,
+                                          isTextBold: true,
+                                          bgColor: Colors.transparent,
+                                          borderColor: Colors.transparent,
+                                          elevation:
+                                              MaterialStateProperty.all(0),
+                                          onPressed: () async {
+                                            const data =
+                                                'did:peaq:5HRNr4pXH7PYKEmeW1jzJVxepXyg8w2Q3YpgRNHpH8foNr5i';
+                                            chargeProvider.providerDid = data;
+                                            chargeProvider
+                                                .generateAndFundMultisigWallet();
 
-                                          await chargeProvider
-                                              .fetchProviderDidDocument(data);
-                                          if (!mounted) return;
-                                          CEVApp.router.navigateTo(
-                                              context, CEVRoutes.providerDetail,
-                                              transition:
-                                                  TransitionType.inFromRight);
-                                        },
-                                      ),
+                                            await chargeProvider
+                                                .fetchProviderDidDocument(data);
+                                            if (!mounted) return;
+                                            CEVApp.router.navigateTo(context,
+                                                CEVRoutes.providerDetail,
+                                                transition:
+                                                    TransitionType.inFromRight);
+                                          }),
                                     ),
                                   ),
                                 ),

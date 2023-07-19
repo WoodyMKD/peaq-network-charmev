@@ -1,29 +1,27 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ffi';
-import 'dart:async';
 
 import 'package:charmev/common/models/account.dart';
 import 'package:charmev/common/models/detail.dart';
+import 'package:charmev/common/models/enum.dart';
 import 'package:charmev/common/models/rust_data.dart';
 import 'package:charmev/common/models/transaction.dart';
+import 'package:charmev/common/providers/application_provider.dart';
 import 'package:charmev/common/services/db/transactions.dart';
-import 'package:charmev/common/utils/pref_storage.dart';
+import 'package:charmev/common/services/fr_bridge/bridge_generated.dart';
 import 'package:charmev/common/widgets/route.dart';
+import 'package:charmev/config/env.dart';
+import 'package:charmev/config/navigator.dart';
 import 'package:charmev/screens/charging_session.dart';
 import 'package:flutter/widgets.dart';
-import 'package:charmev/common/models/enum.dart';
-
-import 'package:charmev/config/navigator.dart';
-import 'package:charmev/common/services/fr_bridge/bridge_generated.dart';
-import 'package:charmev/common/providers/application_provider.dart';
-import 'package:provider/provider.dart' as provider;
-import 'package:charmev/config/env.dart';
 import 'package:peaq_network_ev_charging_message_format/did_document_format.pb.dart'
     as doc;
 import 'package:peaq_network_ev_charging_message_format/p2p_message_format.pb.dart'
     as msg;
+import 'package:provider/provider.dart' as provider;
 
 const base = 'peaq_codec_api';
 final path = Platform.isWindows
