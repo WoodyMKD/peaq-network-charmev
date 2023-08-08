@@ -170,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen>
                                               MaterialStateProperty.all(0),
                                           onPressed: () async {
                                             const data =
-                                                'did:peaq:5HRNr4pXH7PYKEmeW1jzJVxepXyg8w2Q3YpgRNHpH8foNr5i';
+                                                'did:peaq:5FNEds4oQeJcJTHX1gXo3NoNNGtTRqSu8KyGhn6UoJmvkYMM';
                                             chargeProvider.providerDid = data;
                                             chargeProvider
                                                 .generateAndFundMultisigWallet();

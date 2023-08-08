@@ -1,25 +1,23 @@
 import 'dart:math';
-import 'dart:convert';
 
 import 'package:charmev/common/models/detail.dart';
 import 'package:charmev/common/models/enum.dart';
 import 'package:charmev/common/models/station.dart';
 import 'package:charmev/common/models/transaction.dart';
+import 'package:charmev/common/providers/application_provider.dart';
 import 'package:charmev/common/services/db/transactions.dart';
 import 'package:charmev/common/widgets/route.dart';
 import 'package:charmev/config/env.dart';
 import 'package:charmev/config/navigator.dart';
 import 'package:charmev/screens/home.dart';
 import 'package:charmev/theme.dart';
-import 'package:charmev/common/utils/pref_storage.dart';
-import 'package:charmev/common/providers/application_provider.dart';
-import 'package:provider/provider.dart' as provider;
 import 'package:flutter/widgets.dart';
-import 'package:scan/scan.dart';
 import 'package:peaq_network_ev_charging_message_format/did_document_format.pb.dart';
 import 'package:peaq_network_ev_charging_message_format/did_document_format.pbenum.dart';
 import 'package:peaq_network_ev_charging_message_format/p2p_message_format.pb.dart'
     as msg;
+import 'package:provider/provider.dart' as provider;
+import 'package:scan/scan.dart';
 
 class CEVChargeProvider with ChangeNotifier {
   CEVChargeProvider({required this.db});
@@ -260,11 +258,9 @@ class CEVChargeProvider with ChangeNotifier {
   generateAndFundMultisigWallet() async {
     setStatus(LoadingStatus.idle);
     String consumer = appProvider.accountProvider.account.address!;
-    // String provider = _station.address!;
-
     String provider = _providerDid.split(":")[2];
 
-    // setStatus(LoadingStatus.loading, message: Env.creatingMultisigWallet);
+    setStatus(LoadingStatus.loading, message: Env.creatingMultisigWallet);
 
     bool walletCreated =
         await appProvider.peerProvider.creatMultisigAddress(provider, consumer);
@@ -278,7 +274,7 @@ class CEVChargeProvider with ChangeNotifier {
 
     var seed = appProvider.accountProvider.account.seed!;
 
-    // setStatus(LoadingStatus.loading, message: Env.fundingMultisigWallet);
+    setStatus(LoadingStatus.loading, message: Env.fundingMultisigWallet);
 
     var resp = await appProvider.peerProvider
         .transferFund(multisigAddress, "$token", seed);
