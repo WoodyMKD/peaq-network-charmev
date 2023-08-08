@@ -258,9 +258,11 @@ class CEVChargeProvider with ChangeNotifier {
   generateAndFundMultisigWallet() async {
     setStatus(LoadingStatus.idle);
     String consumer = appProvider.accountProvider.account.address!;
+    // String provider = _station.address!;
+
     String provider = _providerDid.split(":")[2];
 
-    setStatus(LoadingStatus.loading, message: Env.creatingMultisigWallet);
+    // setStatus(LoadingStatus.loading, message: Env.creatingMultisigWallet);
 
     bool walletCreated =
         await appProvider.peerProvider.creatMultisigAddress(provider, consumer);
@@ -274,7 +276,7 @@ class CEVChargeProvider with ChangeNotifier {
 
     var seed = appProvider.accountProvider.account.seed!;
 
-    setStatus(LoadingStatus.loading, message: Env.fundingMultisigWallet);
+    // setStatus(LoadingStatus.loading, message: Env.fundingMultisigWallet);
 
     var resp = await appProvider.peerProvider
         .transferFund(multisigAddress, "$token", seed);
