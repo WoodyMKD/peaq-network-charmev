@@ -5,7 +5,7 @@ edition = "2021"
 
 [workspace]
 members = [
-	".",
+    ".",
 ]
 
 [lib]
@@ -46,13 +46,13 @@ default-features = false
 features = ['derive']
 version = '1.0'
 
-[dependencies.frame-metadata] 
+[dependencies.frame-metadata]
 version = "14.0.0"
-git = "https://github.com/paritytech/frame-metadata.git" 
+git = "https://github.com/paritytech/frame-metadata.git"
 branch = "main"
-features = ["v14"] 
+features = ["v14"]
 
-[dependencies.substrate-api-client] 
+[dependencies.substrate-api-client]
 version = "0.6.0"
 git = "https://github.com/irediaes/substrate-api-client.git"
 rev = "b1bf3fd70a7443518edc4fd13395935fa7272047"
@@ -62,10 +62,10 @@ rev = "b1bf3fd70a7443518edc4fd13395935fa7272047"
 default = ["std"]
 std = [
     "substrate-api-client/std",
-	"codec/std",
-	"serde/std",
-	"frame-metadata/std",
+    "codec/std",
+    "serde/std",
+    "frame-metadata/std",
     'sp-core/std',
     "scale-info/std",
-	"sp-runtime/std",
+    "sp-runtime/std",
 ]
